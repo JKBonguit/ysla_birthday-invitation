@@ -36,7 +36,7 @@
         /* The Main Invitation Card */
         .invitation-card {
             background: #fffdf0;
-            border: 12px solid #e61c24; /* Etch-a-sketch / Toy Story Red */
+            border: 12px solid #e61c24; 
             border-radius: 30px;
             box-shadow: 0 15px 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.05);
             width: 100%;
@@ -56,7 +56,7 @@
             left: 0;
             right: 0;
             height: 15px;
-            background: #fdd835; /* Toy Story Yellow */
+            background: #fdd835; 
         }
 
         /* Toy Story Style Logo Header */
@@ -91,7 +91,6 @@
             letter-spacing: 1px;
         }
 
-        /* Sheriff Badge Divider */
         .badge-divider {
             font-size: 2rem;
             margin: 15px 0;
@@ -99,7 +98,6 @@
             display: inline-block;
         }
 
-        /* Celebration Text */
         .details-box {
             background: #e3f2fd;
             border: 3px dashed #1565c0;
@@ -136,7 +134,6 @@
             font-weight: 400;
         }
 
-        /* Character Images Row */
         .character-row {
             display: flex;
             justify-content: space-around;
@@ -165,7 +162,6 @@
             border-color: #e61c24;
         }
 
-        /* Boot Signature "YSLA" at the bottom */
         .andy-signature {
             font-family: 'Bangers', Impact, 'Arial Black', cursive; 
             font-size: 2rem;
@@ -175,12 +171,28 @@
             letter-spacing: 3px;
         }
 
-        /* RSVP Action Buttons Layout */
+        /* RSVP Form Styling */
+        .rsvp-form-container {
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        .guest-input {
+            width: 80%;
+            padding: 10px 15px;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            border: 2px solid #1565c0;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            outline: none;
+            text-align: center;
+        }
+
         .rsvp-btn-container {
             display: flex;
             gap: 15px;
             justify-content: center;
-            margin-top: 10px;
         }
 
         .rsvp-btn {
@@ -188,7 +200,7 @@
             color: white;
             font-size: 1.3rem;
             font-weight: 700;
-            text-decoration: none;
+            border: none;
             padding: 12px 35px;
             border-radius: 50px;
             box-shadow: 0 5px 10px rgba(0,0,0,0.2);
@@ -197,6 +209,7 @@
             box-sizing: border-box;
             cursor: pointer;
             width: 120px;
+            font-family: 'Fredoka', sans-serif;
         }
 
         .rsvp-btn.yes {
@@ -207,7 +220,6 @@
         .rsvp-btn.yes:hover {
             background: #66bb6a;
             transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
         }
 
         .rsvp-btn.no {
@@ -218,7 +230,6 @@
         .rsvp-btn.no:hover {
             background: #f44336;
             transform: translateY(-3px);
-            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
         }
 
         .rsvp-btn:active {
@@ -310,7 +321,7 @@
             color: white;
             border: none;
             padding: 8px 25px;
-            font-family: 'Fredoka', Arial, Helvetica, sans-serif; 
+            font-family: 'Fredoka', sans-serif; 
             font-weight: 700;
             font-size: 1rem;
             border-radius: 20px;
@@ -320,12 +331,6 @@
             text-transform: uppercase;
         }
 
-        .close-box-btn:active {
-            transform: translateY(2px);
-            border-bottom-width: 0px;
-        }
-
-        /* Animations */
         @keyframes popIn {
             0% { transform: scale(0) rotate(-10deg); }
             70% { transform: scale(1.1) rotate(-3deg); }
@@ -366,16 +371,13 @@
             <img class="character-avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcMUNNamuNv9Vue3mqt0nqrvMfb_BnVEG6OL4hqDSvFUos8L6nyA5j6sIxWdx9f9k2zGxf36AEHb3Yjo1wvN7tvXhjqMS7wG6--V7GvBU&s=10" alt="Jessie" onclick="showCharacter('Jessie', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcMUNNamuNv9Vue3mqt0nqrvMfb_BnVEG6OL4hqDSvFUos8L6nyA5j6sIxWdx9f9k2zGxf36AEHb3Yjo1wvN7tvXhjqMS7wG6--V7GvBU&s=10', '“Yee-haw! Yodel-ay-hee-hoo!”', 'Jessie the Yodeling Cowgirl is so excited she\'s doing backflips! She wants everyone to bring their best energy, wear a fun costume, and get ready to yell YEE-HAW!')">
         </div>
 
-        <div id="rsvp-container" style="margin-top: 25px; margin-bottom: 10px;">
-            <p style="font-weight: 700; color: #2c3e50; font-size: 1.4rem; margin: 0 0 12px 0; letter-spacing: 0.5px;">ARE YOU COMING?</p>
+        <div id="rsvp-container" class="rsvp-form-container">
+            <p style="font-weight: 700; color: #2c3e50; font-size: 1.4rem; margin: 0 0 10px 0;">ARE YOU COMING?</p>
+            <input type="text" id="guestName" class="guest-input" placeholder="Enter Your Family Name" required>
+            
             <div class="rsvp-btn-container">
-                <a href="mailto:parents@email.com?subject=YSLA PARTY RSVP: YES&body=Count us in! We are excited to celebrate Ysla's 4th birthday!" 
-                   class="rsvp-btn yes" 
-                   onclick="submitRSVP('yes')">YES</a>
-                   
-                <a href="mailto:parents@email.com?subject=YSLA PARTY RSVP: NO&body=We won't be able to make it, but we hope Ysla has a wonderful 4th birthday!" 
-                   class="rsvp-btn no" 
-                   onclick="submitRSVP('no')">NO</a>
+                <button type="button" class="rsvp-btn yes" onclick="sendRSVP('YES')">YES</button>
+                <button type="button" class="rsvp-btn no" onclick="sendRSVP('NO')">NO</button>
             </div>
         </div>
 
@@ -385,7 +387,6 @@
 
         <div class="andy-signature">YSLA</div>
     </div>
-
 
     <div class="modal-overlay" id="characterModal" onclick="closeCharacter()">
         <div class="toy-box-modal" onclick="event.stopPropagation()">
@@ -397,7 +398,6 @@
         </div>
     </div>
 
-
     <script>
         function showCharacter(name, imgSrc, quote, description) {
             document.getElementById('modalName').innerText = name;
@@ -405,7 +405,6 @@
             document.getElementById('modalImg').alt = name;
             document.getElementById('modalQuote').innerText = quote;
             document.getElementById('modalDescription').innerText = description;
-            
             document.getElementById('characterModal').classList.add('active');
         }
 
@@ -413,14 +412,23 @@
             document.getElementById('characterModal').classList.remove('active');
         }
 
-        /* NEW: Tracks the click selection, updates the screen text instantly */
-        function submitRSVP(response) {
+        // BACKGROUND SILENT DATA SUBMISSION LOGIC
+        function sendRSVP(attendanceValue) {
+            var nameInput = document.getElementById('guestName').value.trim();
+            
+            if (nameInput === "") {
+                alert("Please enter your name before selecting!");
+                return;
+            }
+
+            // Hide the choice panel immediately for smooth UX
             document.getElementById('rsvp-container').style.display = 'none';
             
             var thankYouBox = document.getElementById('rsvp-thankyou');
             var thankYouText = document.getElementById('thankyou-text');
-            
-            if (response === 'yes') {
+
+            // 1. Render UI message changes natively on the screen
+            if (attendanceValue === 'YES') {
                 thankYouText.innerHTML = "🎉 Thank you for your cooperation! hope to see you! 🎉";
                 thankYouBox.style.backgroundColor = "#e8f5e9";
                 thankYouBox.style.border = "3px dashed #4caf50";
@@ -431,10 +439,25 @@
                 thankYouBox.style.border = "3px dashed #e61c24";
                 thankYouText.style.color = "#c62828";
             }
-            
             thankYouBox.style.display = 'block';
+
+            // 2. SILENT DATA SUBMISSION: Sends information directly to your dashboard tracking tool
+            // PASTE YOUR FORMSPARK OR FORMSPREE ENDPOINT URL HERE:
+            var trackingEndpoint = "https://submit-form.com/YOUR_FORM_ID_HERE"; 
+
+            fetch(trackingEndpoint, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body: JSON.stringify({
+                    GuestName: nameInput,
+                    Attending: attendanceValue
+                }),
+            })
+            .catch(error => console.log('Submission tracked locally. Connect form id to receive dashboard logs.'));
         }
     </script>
-
 </body>
 </html>
