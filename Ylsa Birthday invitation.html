@@ -47,7 +47,6 @@
             position: relative;
             overflow: hidden;
             box-sizing: border-box;
-            margin-bottom: 20px;
         }
 
         /* Yellow Accent Header Border */
@@ -234,55 +233,6 @@
             border-bottom-width: 1px;
         }
 
-        /* Dashboard Look */
-        .admin-dashboard {
-            background: #ffffff;
-            border: 4px dashed #1565c0;
-            border-radius: 20px;
-            width: 100%;
-            max-width: 500px;
-            padding: 20px;
-            box-sizing: border-box;
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .dashboard-title {
-            margin: 0 0 15px 0;
-            color: #1565c0;
-            font-size: 1.4rem;
-            text-align: center;
-        }
-
-        .list-section {
-            margin-bottom: 15px;
-        }
-
-        .list-title {
-            font-weight: bold;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-        }
-
-        .list-box {
-            background: #f8f9fa;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 10px;
-            min-height: 40px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        .guest-tag {
-            display: inline-block;
-            background: #e3f2fd;
-            color: #1565c0;
-            padding: 5px 10px;
-            border-radius: 20px;
-            margin: 3px;
-            font-size: 0.9rem;
-        }
-
         /* Character Modal Elements */
         .modal-overlay {
             position: fixed;
@@ -437,23 +387,6 @@
         <div class="andy-signature">YSLA</div>
     </div>
 
-    <!-- PRIVATE ATTENDANCE DASHBOARD PANEL (VISIBLE ON DESIGNATED DEVICE) -->
-    <div class="admin-dashboard">
-        <h3 class="dashboard-title">📈 Ysla's Guest List Dashboard</h3>
-        
-        <div class="list-section">
-            <div class="list-title" style="color: #2e7d32;">Will Come ✅</div>
-            <div id="will-come-box" class="list-box"></div>
-        </div>
-
-        <div class="list-section">
-            <div class="list-title" style="color: #c62828;">Will Not Come ❌</div>
-            <div id="will-not-come-box" class="list-box"></div>
-        </div>
-        
-        <button onclick="clearDatabase()" style="background: #9e9e9e; color: #fff; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.8rem;">Reset List</button>
-    </div>
-
     <!-- POPUP INFO MODAL -->
     <div class="modal-overlay" id="characterModal" onclick="closeCharacter()">
         <div class="toy-box-modal" onclick="event.stopPropagation()">
@@ -478,11 +411,6 @@
         function closeCharacter() {
             document.getElementById('characterModal').classList.remove('active');
         }
-
-        // Run dashboard load procedures immediately when page opens
-        window.onload = function() {
-            refreshDashboardDisplay();
-        };
 
         // Processes click choice actions local style
         function processChoice(selection) {
@@ -523,38 +451,25 @@
                 msgText.style.color = "#c62828";
             }
             msgPanel.style.display = 'block';
+            
+            // --- GOOGLE FORMS SILENT SUBMISSION SYSTEM ---
+            // Paste your actual Google Form URL ID below
+            var formID = "YOUR_GOOGLE_FORM_ID_HERE"; 
+            
+            // Paste your form's unique field entry codes below
+            var nameFieldEntryID = "entry.1111111111"; 
+            var rsvpFieldEntryID = "entry.2222222222"; 
 
-            // Refresh tracker views instantly
-            refreshDashboardDisplay();
-        }
+            var targetURL = "https://docs.google.com/forms/d/e/" + formID + "/formResponse";
+            var formData = new FormData();
+            formData.append(nameFieldEntryID, rawName);
+            formData.append(rsvpFieldEntryID, selection);
 
-        // Read memory and update text elements on screen layout boxes
-        function refreshDashboardDisplay() {
-            var yesBox = document.getElementById('will-come-box');
-            var noBox = document.getElementById('will-not-come-box');
-
-            var acceptedList = JSON.parse(localStorage.getItem('willComeList')) || [];
-            var declinedList = JSON.parse(localStorage.getItem('willNotComeList')) || [];
-
-            yesBox.innerHTML = '';
-            noBox.innerHTML = '';
-
-            acceptedList.forEach(function(name) {
-                yesBox.innerHTML += '<span class="guest-tag" style="background:#e8f5e9; color:#2e7d32;">' + name + '</span>';
-            });
-
-            declinedList.forEach(function(name) {
-                noBox.innerHTML += '<span class="guest-tag" style="background:#ffebee; color:#c62828;">' + name + '</span>';
-            });
-        }
-
-        // Clears internal browser tracking logs cleanly
-        function clearDatabase() {
-            if(confirm("Are you sure you want to clear your guest list logs?")) {
-                localStorage.removeItem('willComeList');
-                localStorage.removeItem('willNotComeList');
-                refreshDashboardDisplay();
-            }
+            fetch(targetURL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            }).catch(e => console.log("Data logged."));
         }
     </script>
 </body>
