@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1024, initial-scale=0.5">
+    <title>To Infinity and Beyond! You're Invited!</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Andy's Iconic Cloud Wallpaper Background */
+        body {
+            background-color: #53b4ff;
+            background-image: 
+                radial-gradient(circle at 20% 30%, #ffffff 0%, #ffffff 8%, transparent 9%),
+                radial-gradient(circle at 25% 33%, #ffffff 0%, #ffffff 10%, transparent 11%),
+                radial-gradient(circle at 15% 35%, #ffffff 0%, #ffffff 7%, transparent 8%),
+                radial-gradient(circle at 20% 38%, #ffffff 0%, #ffffff 10%, transparent 11%),
+                
+                radial-gradient(circle at 75% 65%, #ffffff 0%, #ffffff 8%, transparent 9%),
+                radial-gradient(circle at 80% 68%, #ffffff 0%, #ffffff 10%, transparent 11%),
+                radial-gradient(circle at 70% 70%, #ffffff 0%, #ffffff 7%, transparent 8%),
+                radial-gradient(circle at 75% 73%, #ffffff 0%, #ffffff 10%, transparent 11%);
+            background-size: 400px 400px;
+            font-family: 'Fredoka', Arial, Helvetica, sans-serif; /* PHONE FIX: Added safe font fallbacks */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* The Main Invitation Card */
+        .invitation-card {
+            background: #fffdf0;
+            border: 12px solid #e61c24; /* Etch-a-sketch / Toy Story Red */
+            border-radius: 30px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(0,0,0,0.05);
+            width: 500px; /* Locked to exact computer width */
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Yellow Accent Header Border */
+        .invitation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 15px;
+            background: #fdd835; /* Toy Story Yellow */
+        }
+
+        /* Toy Story Style Logo Header */
+        .logo-header {
+            font-family: 'Bangers', Impact, 'Arial Black', cursive; /* PHONE FIX: Added heavy font fallbacks to keep sizing identical */
+            font-size: 3.5rem;
+            color: #fdd835;
+            text-shadow: 
+                -3px -3px 0 #1565c0,  
+                 3px -3px 0 #1565c0,
+                -3px  3px 0 #1565c0,
+                 3px  3px 0 #1565c0,
+                 6px  6px 0px rgba(0,0,0,0.2);
+            letter-spacing: 2px;
+            margin: 10px 0 5px 0;
+            transform: rotate(-3deg);
+            animation: popIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .sub-header {
+            font-size: 1.5rem;
+            color: #e61c24;
+            margin-bottom: 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sheriff Badge Divider */
+        .badge-divider {
+            font-size: 2rem;
+            margin: 15px 0;
+            animation: spin 4s linear infinite;
+            display: inline-block;
+        }
+
+        /* Celebration Text */
+        .details-box {
+            background: #e3f2fd;
+            border: 3px dashed #1565c0;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .details-box p {
+            font-size: 1.2rem;
+            color: #2c3e50;
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+
+        .highlight-age {
+            font-family: 'Bangers', Impact, 'Arial Black', cursive; /* PHONE FIX: Added heavy font fallbacks */
+            font-size: 2.5rem;
+            color: #e61c24;
+            display: inline-block;
+            transform: scale(1.1);
+            margin: 0 5px;
+        }
+
+        .info-row {
+            font-size: 1.1rem;
+            margin: 12px 0;
+            color: #1565c0;
+            font-weight: 700;
+        }
+        
+        .info-row span {
+            color: #333;
+            font-weight: 400;
+        }
+
+        /* Character Images Row */
+        .character-row {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 25px 0;
+        }
+
+        .character-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 4px solid #fdd835;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+            object-fit: cover;
+            background: #fff;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .character-avatar:hover {
+            transform: scale(1.2) rotate(5deg);
+            border-color: #e61c24;
+        }
+
+        /* Boot Signature "YSLA" at the bottom */
+        .andy-signature {
+            font-family: 'Bangers', Impact, 'Arial Black', cursive; /* PHONE FIX: Added heavy font fallbacks */
+            font-size: 2rem;
+            color: #2c3e50;
+            opacity: 0.7;
+            margin-top: 15px;
+            letter-spacing: 3px;
+        }
+
+        /* Interactive RSVP Button */
+        .rsvp-btn {
+            display: inline-block;
+            background: #4caf50;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            border-bottom: 5px solid #2e7d32;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+
+        .rsvp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+            background: #66bb6a;
+        }
+
+        .rsvp-btn:active {
+            transform: translateY(2px);
+            border-bottom-width: 1px;
+        }
+
+        /* --- POPUP MODAL OVERLAY --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Triggered dynamically via JavaScript */
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* The Box Container for Details */
+        .toy-box-modal {
+            background: #fffdf0;
+            border: 8px solid #1565c0; /* Blue Border for Toy Box design */
+            border-radius: 25px;
+            width: 400px; /* Locked to exact computer width */
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transform: scale(0.7);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .modal-overlay.active .toy-box-modal {
+            transform: scale(1);
+        }
+
+        .modal-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 5px solid #fdd835;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background: white;
+        }
+
+        .modal-name {
+            font-family: 'Bangers', Impact, 'Arial Black', cursive; /* PHONE FIX: Added heavy font fallbacks */
+            font-size: 2.5rem;
+            color: #e61c24;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+        }
+
+        .modal-text {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+
+        .modal-quote {
+            font-style: italic;
+            font-weight: bold;
+            color: #1565c0;
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .close-box-btn {
+            background: #e61c24;
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            font-family: 'Fredoka', Arial, Helvetica, sans-serif; /* PHONE FIX: Added safe font fallbacks */
+            font-weight: 700;
+            font-size: 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            border-bottom: 3px solid #b71c1c;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .close-box-btn:active {
+            transform: translateY(2px);
+            border-bottom-width: 0px;
+        }
+
+        /* Global Keyframe Animations */
+        @keyframes popIn {
+            0% { transform: scale(0) rotate(-10deg); }
+            70% { transform: scale(1.1) rotate(-3deg); }
+            100% { transform: scale(1) rotate(-3deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-card">
+        <div class="logo-header">TOY STORY</div>
+        <div class="sub-header">You've Got a Friend in Me!</div>
+        
+        <div class="badge-divider">⭐</div>
+
+        <div class="details-box">
+            <p>Reach for the sky! You are invited because</p>
+            <p><strong style="font-size: 1.5rem; color: #1565c0;">Ysla</strong> is turning</p>
+            <div class="highlight-age">4 YEARS OLD!</div>
+            <p>Join Woody, Buzz, and the whole toy box crew for an unforgettable adventure!</p>
+            <p style="font-size: 0.9rem; color: #7f8c8d; margin-top: 10px;">🌟 Tap a toy below to see their secret file! 🌟</p>
+        </div>
+
+        <div class="info-row">📅 WHEN: <span>Saturday, October 26th @ 2:00 PM</span></div>
+        <div class="info-row">📍 WHERE: <span>Andy's Backyard (123 Playtime Lane)</span></div>
+        <div class="info-row">🚀 MISSION: <span>Wear your favorite costume!</span></div>
+
+        <div class="character-row">
+            <img class="character-avatar" src="https://lumiere-a.akamaihd.net/v1/images/b_toystory_characterbanner_woody_mobile_gradient_v2_32211a98.jpeg?region=0,0,640,480" alt="Woody" onclick="showCharacter('Woody', 'https://lumiere-a.akamaihd.net/v1/images/b_toystory_characterbanner_woody_mobile_gradient_v2_32211a98.jpeg?region=0,0,640,480', '“You\'re my favorite deputy!”', 'Sheriff Woody is checking his boot for snakes and getting ready to lead the party games! He says Ysla\'s 4th birthday is going to be the rootinest, tootinest celebration in the west!')">
+            
+            <img class="character-avatar" src="https://lumiere-a.akamaihd.net/v1/images/b_toystory_characterbanner_buzz_mobile_gradient_v2_14ddf7ec.jpeg" alt="Buzz" onclick="showCharacter('Buzz Lightyear', 'https://lumiere-a.akamaihd.net/v1/images/b_toystory_characterbanner_buzz_mobile_gradient_v2_14ddf7ec.jpeg', '“To Infinity... and Beyond!”', 'Space Ranger Buzz has logged a special mission from Star Command: Fly down to Ysla\'s party and protect the birthday cake from the Evil Emperor Zurg!')">
+            
+            <img class="character-avatar" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcMUNNamuNv9Vue3mqt0nqrvMfb_BnVEG6OL4hqDSvFUos8L6nyA5j6sIxWdx9f9k2zGxf36AEHb3Yjo1wvN7tvXhjqMS7wG6--V7GvBU&s=10" alt="Jessie" onclick="showCharacter('Jessie', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcMUNNamuNv9Vue3mqt0nqrvMfb_BnVEG6OL4hqDSvFUos8L6nyA5j6sIxWdx9f9k2zGxf36AEHb3Yjo1wvN7tvXhjqMS7wG6--V7GvBU&s=10', '“Yee-haw! Yodel-ay-hee-hoo!”', 'Jessie the Yodeling Cowgirl is so excited she\'s doing backflips! She wants everyone to bring their best energy, wear a fun costume, and get ready to yell YEE-HAW!')">
+        </div>
+
+        <a href="mailto:parents@email.com?subject=RSVP: Ysla's Birthday!" class="rsvp-btn">RSVP HERE!</a>
+
+        <div class="andy-signature">YSLA</div>
+    </div>
+
+
+    <div class="modal-overlay" id="characterModal" onclick="closeCharacter()">
+        <div class="toy-box-modal" onclick="event.stopPropagation()">
+            <img id="modalImg" class="modal-img" src="" alt="Toy Character">
+            <h2 id="modalName" class="modal-name">Character Name</h2>
+            <p id="modalQuote" class="modal-quote">"Catchphrase!"</p>
+            <p id="modalDescription" class="modal-text">Description goes here.</p>
+            <button class="close-box-btn" onclick="closeCharacter()">Back to Invite</button>
+        </div>
+    </div>
+
+
+    <script>
+        function showCharacter(name, imgSrc, quote, description) {
+            document.getElementById('modalName').innerText = name;
+            document.getElementById('modalImg').src = imgSrc;
+            document.getElementById('modalImg').alt = name;
+            document.getElementById('modalQuote').innerText = quote;
+            document.getElementById('modalDescription').innerText = description;
+            
+            document.getElementById('characterModal').classList.add('active');
+        }
+
+        function closeCharacter() {
+            document.getElementById('characterModal').classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
